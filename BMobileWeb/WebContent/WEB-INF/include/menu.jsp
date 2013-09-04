@@ -16,10 +16,10 @@
 					<a href="">Nosotros</a>				
 				</li>
 				<li>
-					<a href="">BMobile Android</a>				
+					<a href="/bmobile/android.jsp">BMobile Android</a>				
 				</li>
 				<li>
-					<a href="">BMobile Web</a>				
+					<a href="/bmobile/web.jsp">BMobile Web</a>				
 				</li>
 				<li>
 					<a href="">Beneficios</a>

@@ -22,7 +22,7 @@
 		        </li>
 		        <li>
 		            <label for="Mensaje">Comentario:</label>
-		            <textarea name="Mensaje" cols="40" rows="6" required ></textarea>
+		            <textarea name="mensaje" cols="40" rows="6" required ></textarea>
 		        </li>
 		        <li>
 		        	<button class="submit" type="submit">Enviar</button>

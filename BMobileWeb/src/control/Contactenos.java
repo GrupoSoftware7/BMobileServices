@@ -21,7 +21,7 @@ public class Contactenos extends HttpServlet {
         if (validateParam(request) == true) {
             try {
                 String correo = request.getParameter("correo");
-                String comentario = request.getParameter("comentario");
+                String comentario = request.getParameter("mensaje");
 
                 boolean mail = enviarMail(request, correo, comentario);
                     if (mail == false){
@@ -32,11 +32,11 @@ public class Contactenos extends HttpServlet {
             } catch (Exception ex) {
                 request.setAttribute("resultados", "Intrusi�n detectada");
             }finally {
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("resultados", "Formulario no valido");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 
@@ -61,7 +61,7 @@ public class Contactenos extends HttpServlet {
     }
 
     protected boolean validateParam(HttpServletRequest request) {
-        if (request.getParameter("correo") != null && request.getParameter("comentario") != null && request.getParameter("enviar") != null ) {
+        if (request.getParameter("correo") != null && request.getParameter("mensaje") != null) {
             return true;
         }
         return false;
@@ -81,6 +81,6 @@ public class Contactenos extends HttpServlet {
     
     @Override
     public String getServletInfo (){
-        return "Servlet para la restauración de contraseñas perdidas";
+        return "Servlet para enviar correo";
     }
 }
