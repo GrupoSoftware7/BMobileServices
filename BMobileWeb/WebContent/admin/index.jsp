@@ -5,13 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Inicio de usuario</title>
-<link rel="stylesheet" type="text/css" href="css/estilos.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/bmobile/css/estilos.css" media="all" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 </head>
 <body>
 <%@include file="/WEB-INF/include/menu.jsp"%>
+<%@include file="/WEB-INF/include/resultados.jsp" %>
 <div class="contenedor">
-<p>Bienvenido </p><label><%=actualUser.getNombre() %></label>
-<p>Saldo </p><label><%=actualCuenta.getSaldo() %></label>
+<p>Bienvenido <label><%=actualUser.getNombre() %></label></p>
+<p>Saldo <label><%=actualCuenta.getSaldo() %></label></p>
 </div>
 </body>
 </html>

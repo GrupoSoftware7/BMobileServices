@@ -23,16 +23,16 @@
         <servlet-class>control.Registro</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Movimientos</servlet-name>
+        <servlet-class>control.Movimientos</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>control.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Compras</servlet-name>
         <servlet-class>control.Compras</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Recargas</servlet-name>
-        <servlet-class>control.Recargas</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Autentificacion</servlet-name>
@@ -48,11 +48,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Compras</servlet-name>
-        <url-pattern>/comprar</url-pattern>
+        <url-pattern>/admin/comprar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Recargas</servlet-name>
-        <url-pattern>/recargas</url-pattern>
+        <servlet-name>Compras</servlet-name>
+        <url-pattern>/admin/recargas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Movimientos</servlet-name>
+        <url-pattern>/admin/movimientos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>

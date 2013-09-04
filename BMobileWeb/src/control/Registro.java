@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
@@ -44,31 +45,44 @@ public class Registro extends HttpServlet {
                     Usuario user = new Usuario(request.getParameter("nombre"), request.getParameter("apellidoP"),request.getParameter("apellidoM") ,request.getParameter("correo"));
                     Cuenta cuenta = new Cuenta(request.getParameter("celular"), 0);
                      
-                    Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/bmobilebd","admin_billetera","a299029");
+                    Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/bmobilebd","root","root");
         			
         			Statement stmt = con.createStatement();
         			
-        			int rs=stmt.executeUpdate("INSERT INTO Usuario (nom, apePat, apeMat, correo)" +
-							" VALUES ('"+user.getNombre()+"', '"+user.getApellidoP()+"', '"+user.getApellidoM()+"', '"+user.getCorreo()+"');");
-						
-        			if(rs==1){
-
-        				int rs2=stmt.executeUpdate("INSERT INTO Cuenta (NumCel, clave, saldo)" +
-    						" VALUES ('"+cuenta.getCelular()+"', '"+request.getParameter("clave")+"', '"+cuenta.getSaldo()+"');");
+        			ResultSet rs0= stmt.executeQuery("select max(CodUsuario)+1 as codigo from Usuario;");
+        			
+        			if(rs0.next()){
         				
-        				if(rs2==1){
-        					
-	                        request.setAttribute("resultados", "Usuario registrado");
-	                        
-        				}else{
-        					
-        					stmt.executeUpdate("DELETE FROM Usuario ORDER BY CodUsuario desc LIMIT 1");
-        					request.setAttribute("resultados", "Error en el registro");
-        					
+        				String num=rs0.getString("codigo");
+        				
+        				while(num.length()<4){
+        					num="0"+num;
         				}
-	                } else {
-	                        request.setAttribute("resultados", "Error en el registro");	                        
-	               }
+        				
+        				int rs1=stmt.executeUpdate("INSERT INTO Usuario (CodUsuario, nom, apePat, apeMat, correo)" +
+    							" VALUES ('"+num+"','"+user.getNombre()+"', '"+user.getApellidoP()+"', '"+user.getApellidoM()+"', '"+user.getCorreo()+"');");
+        			
+        				if(rs1==1){
+
+            				int rs2=stmt.executeUpdate("INSERT INTO Cuenta (NumCel, clave, saldo, CodUsuario)" +
+        						" VALUES ('"+cuenta.getCelular()+"', '"+request.getParameter("clave")+"', '"+cuenta.getSaldo()+"','"+num+"' );");
+            				
+            				if(rs2==1){
+            					
+    	                        request.setAttribute("resultados", "Usuario registrado");
+    	                        
+            				}else{
+            					
+            					stmt.executeUpdate("DELETE FROM Usuario ORDER BY CodUsuario desc LIMIT 1");
+            					request.setAttribute("resultados", "Error en el registro");
+            					
+            				}
+    	                } else {
+    	                        request.setAttribute("resultados", "Error en el registro");	                        
+    	               }
+        			
+        			}
+ 
         			
                 } else {
                     request.setAttribute("resultados", "Datos incorrectos");
@@ -87,7 +101,7 @@ public class Registro extends HttpServlet {
         if (request.getParameterMap().size() >= 8 && request.getParameter("nombre") != null && request.getParameter("apellidoP") != null
         		&& request.getParameter("apellidoM") != null && request.getParameter("celular") != null
         		&& request.getParameter("correo") != null && request.getParameter("clave") != null 
-        		&& request.getParameter("repetirClave") != null && request.getParameter("register") != null) {
+        		&& request.getParameter("repetirClave") != null && request.getParameter("submit") != null) {
             return true;
         } else {
             return false;

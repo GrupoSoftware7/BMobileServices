@@ -28,10 +28,16 @@ public class Autentificacion extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	PrintWriter out = response.getWriter();
+    	 try {
+ 			Class.forName("com.mysql.jdbc.Driver");
+ 		}
+         catch( Exception x ){
+                 System.out.println( "No se cargaron los drivers" ); 
+         }
         if (validateForm(request) == false) {
-        	out.print("Error iniciando sesion, El formulario enviado no es correcto");
+        	request.setAttribute("resultados", "Error iniciando sesion, El formulario enviado no es correcto");	
         } else if (request.getSession().getAttribute("intentosLogin") != null && (Integer) request.getSession().getAttribute("intentosLogin") >= 5) {
-        	out.print("Inicio de sesión bloqueado, espere 5 min para volver a intentarlo");
+        	request.setAttribute("resultados", "Inicio de sesión bloqueado, espere 5 min para volver a intentarlo");	
             this.starTimer(request.getSession());
         } else {
             try {
@@ -40,25 +46,34 @@ public class Autentificacion extends HttpServlet {
                 String celular = request.getParameter("celular");
                 String clave = request.getParameter("clave");
 
-                try {
-        			Class.forName("com.mysql.jdbc.Driver");
-        		}
-                catch( Exception x ){
-                        System.out.println( "No se cargaron los drivers" ); 
-                }
-                Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/bmobilebd","admin_billetera","a299029");
+                Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/bmobilebd","root","root");
     			
     			Statement stmt = con.createStatement();
+    			
     			ResultSet rs=stmt.executeQuery("Select * from Cuenta where NumCel='"+celular+"' and clave='"+clave+"'");
 					
     			if(rs.next()){
-    				ResultSet rs2=stmt.executeQuery("Select * from Usuario where CodUsuario='"+rs.getString("CodUsuario")+"'");
+    							
+    				String CodUsuario = rs.getString("CodUsuario");
+    				String saldo = rs.getString("saldo");
+					
+					cuenta = new Cuenta(celular, Float.parseFloat(saldo));
+		
+    				ResultSet rs2=stmt.executeQuery("Select * from Usuario where CodUsuario='"+CodUsuario+"'");
+    				
     				if(rs2.next()){
-    					usuario = new Usuario(rs.getString("nom"), rs.getString("apePat"), rs.getString("apeMat"), rs.getString("correo"));
-    					cuenta = new Cuenta(rs2.getString("NumCel"), Double.parseDouble(rs2.getString("saldo")));
+    					
+        				String nombre = rs2.getString("nom");
+        				String apePat = rs2.getString("apePat");
+        				String apeMat = rs2.getString("apeMat");
+        				String correo = rs2.getString("correo");
+        				
+        				usuario = new Usuario(nombre, apePat, apeMat, correo);	
+    					
     				}else{
     					stmt.executeUpdate("DELETE FROM Cuenta ORDER BY CodUsuario desc LIMIT 1");
     				}
+    				
                     request.getSession().setAttribute("auth", true);
                     request.getSession().setAttribute("usuario", usuario);
                     request.getSession().setAttribute("cuenta", cuenta);
@@ -68,25 +83,27 @@ public class Autentificacion extends HttpServlet {
                             request.getSession().removeAttribute("requestedPage");
                             response.sendRedirect(redirect);
                     } else {
-                        out.print("CORRECTO");
+                    	request.setAttribute("resultados", "Sesion correcta");	
                     }
                     request.getSession().removeAttribute("intentosLogin");
+                    request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
                     return;
                 //Contraseña incorrecta
                 } else {
-                    	out.print("Disculpe, la combinacion de usuario y contraseña es incorrecta");
+                	request.setAttribute("resultados", "Disculpe, la combinacion de usuario y contraseña es incorrecta");	
                 }
                 this.incrementarIntentos(request.getSession());
-                out.println("Error inciando sesion");
+                request.setAttribute("resultados", "Error inciando sesion");
+                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
             } catch (Exception ex) {
-            	out.print("Intrusión detectada");
+            	request.setAttribute("resultados", "Intrusión detectada");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
         }
     }
 
     protected boolean validateForm(HttpServletRequest request) {
-        Map<String, String[]> param = request.getParameterMap();
-        if (param.size() == 2 && param.containsKey("celular") && param.containsKey("clave")) {
+        if (request.getParameterMap().size() >= 3 && request.getParameter("celular") != null && request.getParameter("clave") != null && request.getParameter("submit") != null) {
             return true;
         } else {
             return false;

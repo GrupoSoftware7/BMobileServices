@@ -30,51 +30,51 @@
 			</ul>
 		</li>
 		<li>
-			<a href="tarifas.jsp">TARIFAS</a>
+			<a href="/bmobile/tarifas.jsp">TARIFAS</a>
 		</li>
 		<li>
-			<a href="contactenos.jsp">CONT√ÅCTENOS</a>		
+			<a href="/bmobile/contactenos.jsp">CONT¡CTENOS</a>		
 		</li>
 		<% if (auth != null && auth == true){
 	   	actualUser = (Usuario)session.getAttribute("usuario");
 	   	actualCuenta = (Cuenta)session.getAttribute("cuenta");
 	   	%>
 	   	<li>
-			<a href="admin/user.jsp"><%=actualUser.getNombre() %></a>
+			<a href="/bmobile/admin/index.jsp"><%=actualUser.getNombre() %></a>
 			<ul>
 				<li>
-					<a href="admin/compras.jsp">Compras</a>
+					<a href="/bmobile/admin/compras.jsp">Compras</a>
 				</li>
 				<li>
-					<a href="admin/recargas.jsp">Recargas</a>				
+					<a href="/bmobile/admin/recargas.jsp">Recargas</a>				
 				</li>
 				<li>
-					<a href="admin/movimientos">Movimientos Realizados</a>
+					<a href="/bmobile/admin/movimientos?codUser=<%=actualCuenta.getCelular() %>&ver=todo">Movimientos Realizados</a>
 					<ul>
 						<li>
-							<a href="admin/movAlimentos">Alimento</a>				
+							<a href="/bmobile/admin/movimientos?codUser=<%=actualCuenta.getCelular() %>&ver=alim">Comida</a>				
 						</li>
 						<li>
-							<a href="admin/movVestimenta">Vestimenta</a>				
+							<a href="/bmobile/admin/movimientos?codUser=<%=actualCuenta.getCelular() %>&ver=vest">Vestimenta</a>				
 						</li>
 						<li>
-							<a href="admin/movEscolar">Escolar</a>				
+							<a href="/bmobile/admin/movimientos?codUser=<%=actualCuenta.getCelular() %>&ver=esco">Escolar</a>				
 						</li>
 						<li>
-							<a href="admin/movOcio">Ocio</a>
+							<a href="/bmobile/admin/movimientos?codUser=<%=actualCuenta.getCelular() %>&ver=ocio">Ocio</a>
 						</li>
 					</ul>				
 				</li>
 				<li>
-					<a href="logout">Cerrar Sesi√≥n</a>
+					<a href="/bmobile/logout">Cerrar SesiÛn</a>
 				</li>
 			</ul>
 		</li>
 		<%}else{%>
 		<li>
-			<a href="registro.jsp">REG√çSTRESE</a>
+			<a href="/bmobile/registro.jsp">REGÕSTRESE</a>
 		</li>
-		<li><a href="login.jsp">INICIAR SESI√ìN</a></li>
+		<li><a href="/bmobile/login.jsp">INICIAR SESI”N</a></li>
 		<%} %>
 	</ul>
 </nav>

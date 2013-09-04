@@ -11,6 +11,7 @@
 </head>
 <body>
 <%@include file="/WEB-INF/include/menu.jsp"%>
-<div class="contenedor">    </div>
+<%@include file="/WEB-INF/include/resultados.jsp" %>
+<div class="contenedor"></div>
 </body>
 </html>

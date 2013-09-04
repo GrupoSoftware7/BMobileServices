@@ -16,13 +16,15 @@
 <div class="container">    
       <div  class="form">
       		<h2>Recargas</h2>  
-    		<form id="contactform" method="post" action="Recargas">
-    			<input type="hidden" name="NumCel" value="<%=actualCuenta.getCelular() %>" />    			          
+    		<form id="contactform" method="post" action="recargas">
+    			<input type="hidden" name="NumCel" value="<%=actualCuenta.getCelular() %>" /> 
+    			<input type="hidden" name="tipo" value="00000000" />  
+    			<input type="hidden" name="tipoT" value="00000002" />     
 	            <p class="contact"><label for="phone">Numero de Celular a Recargar</label></p> 
 	            <input id="celular" name="celular" placeholder="Escriba Numero de celular" required="" type="text">
     			 
     			<p class="contact"><label for="monto">Monto (soles)</label></p> 
-    			<input id="monto" name="monto" placeholder="Escriba Monto en soles" required="" type="email"> 
+    			<input id="monto" name="monto" placeholder="Escriba Monto en soles" required="" type="text"> 
     			 
 				<br>
 				<br>

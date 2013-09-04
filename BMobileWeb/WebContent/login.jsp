@@ -26,17 +26,17 @@
 
 				<p>
 					<label for="login-username">N° Celular</label>
-					<input type="text" id="login-username" class="round full-width-input" autofocus />
+					<input type="text" id="login-username" name="celular" class="round full-width-input" autofocus />
 				</p>
 
 				<p>
 					<label for="login-password">Contraseña</label>
-					<input type="password" id="login-password" class="round full-width-input" />
+					<input type="password" id="login-password" name="clave" class="round full-width-input" />
 				</p>
 				
 				<p><a href="#">Recuperar su contraseña</a></p>
 				
-				<input type="submit" class="button round blue image-right ic-right-arrow" value="Ingresar" />
+				<input type="submit" name="submit" class="button round blue image-right ic-right-arrow" value="Ingresar" />
 
 			</fieldset>
 

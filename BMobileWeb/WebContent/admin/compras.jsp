@@ -17,19 +17,20 @@
       <div  class="form">
       		<h2>Compras</h2>  
     		<form id="contactform" method="post" action="comprar">
-    			<input type="hidden" name="NumCel" value="<%=actualCuenta.getCelular() %>" />   			          
+    			<input type="hidden" name="NumCel" value="<%=actualCuenta.getCelular() %>" />  
+    			<input type="hidden" name="tipoT" value="00000001" />		          
 	            <p class="contact"><label for="phone">Numero de Celular a Transferir</label></p> 
 	            <input id="celular" name="celular" placeholder="Escriba Numero de celular" required="" type="text">
     			 
     			<p class="contact"><label for="monto">Monto (soles)</label></p> 
-    			<input id="monto" name="monto" placeholder="Escriba Monto en soles" required="" type="email"> 
+    			<input id="monto" name="monto" placeholder="Escriba Monto en soles" required="" type="text"> 
     			 
                 <p class="contact"><label for="tipo">Tipo de Compra</label></p>
                 <select name="tipo">
-                	<option value="1">Alimento</option>
-                	<option value="2">Vestimenta</option>
-                	<option value="3">Escolar</option>
-                	<option value="4">Ocio</option>
+                	<option value="00000001">Alimento</option>
+                	<option value="00000002">Vestimenta</option>
+                	<option value="00000003">Escolar</option>
+                	<option value="00000004">Ocio</option>
                 </select> 
 				<br>
 				<br>

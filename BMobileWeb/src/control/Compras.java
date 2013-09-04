@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
@@ -38,42 +39,52 @@ public class Compras extends HttpServlet {
         if (validateForm(request) == true) {
             try {
                      
-                    Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/bmobilebd","admin_billetera","a299029");
+                    Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/bmobilebd","root","root");
         			
         			Statement stmt = con.createStatement();
         			
         			Calendar fecha = java.util.Calendar.getInstance();
         			
-        			int rs=stmt.executeUpdate("INSERT INTO Transaccion (monTrans, fecTrans, CodTipTrans)" +
-							" VALUES ('"+request.getParameter("monto")+"', '"+fecha.get(java.util.Calendar.DATE) + "/" + fecha.get(java.util.Calendar.MONTH) + "/" +
-									  + fecha.get(java.util.Calendar.YEAR)+"', '"+request.getParameter("tipo")+"');");
-						
-        			if(rs==1){
-
-        				int rs2=stmt.executeUpdate("INSERT INTO Transaccionxcuenta (NumCel, CodTipMov, des)" +
-    						" VALUES ('"+request.getParameter("NumCel")+"', '1', '"+request.getParameter("celular")+"');");
+        			ResultSet rs0= stmt.executeQuery("select max(CodTrans)+1 as codigo from Transaccion;");
+        			
+        			if(rs0.next()){
         				
-        				if(rs2==1){
-        					
-	                        request.setAttribute("resultados", "Compra Satisfactoria");
-	                        
-        				}else{
-        					
-        					stmt.executeUpdate("DELETE FROM Transaccion ORDER BY CodTrans desc LIMIT 1");
-        					request.setAttribute("resultados", "Error en el registro");
-        					
+        				String num=rs0.getString("codigo");
+        				
+        				while(num.length()<8){
+        					num="0"+num;
         				}
-	                } else {
-	                        request.setAttribute("resultados", "Error en el registro");	                        
-	               }
-
+        				
+	        			int rs=stmt.executeUpdate("INSERT INTO Transaccion (CodTrans, monTrans, fecTrans, CodTipTrans)" +
+								" VALUES ('"+num+"','"+request.getParameter("monto")+"', '"+fecha.get(java.util.Calendar.YEAR)+"-"+
+								+ fecha.get(java.util.Calendar.MONTH) +"-"+ fecha.get(java.util.Calendar.DATE) +"', '"+request.getParameter("tipoT")+"');");
+							
+	        			if(rs==1){
+	
+	        				int rs2=stmt.executeUpdate("INSERT INTO Transaccionxcuenta (CodTrans, NumCel, CodTipMov, des)" +
+	    						" VALUES ('"+num+"','"+request.getParameter("NumCel")+"', '"+request.getParameter("tipo")+"', '"+request.getParameter("celular")+"');");
+	        				
+	        				if(rs2==1){
+	        					
+		                        request.setAttribute("resultados", "Compra Satisfactoria");
+		                        
+	        				}else{
+	        					
+	        					stmt.executeUpdate("DELETE FROM Transaccion ORDER BY CodTrans desc LIMIT 1");
+	        					request.setAttribute("resultados", "Error en el registro");
+	        					
+	        				}
+		                } else {
+		                        request.setAttribute("resultados", "Error en el registro");	                        
+		                }
+        		    }
             } catch (Exception ex) {
                 request.setAttribute("resultados", "Error en el formulario");
             }
         } else {
             request.setAttribute("resultados", "Ocurrio un error en el registro");
         }
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
     }
 
     protected boolean validateForm(HttpServletRequest request) {

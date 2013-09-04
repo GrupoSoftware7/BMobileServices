@@ -16,14 +16,14 @@ body{
 	}
 	
 	header{
-		width: 635px;
+		width: 660px;
 		height: 136px;
 		margin: 0 auto;
 		padding: 0;
 	}
 	
 	header img{
-		width: 635px;
+		width: 660px;
 		height: 136px;
 	}
 	
@@ -34,8 +34,8 @@ body{
 	}
 	
 	#menu {
-		width: 633px;
-		margin: 0px auto;
+		width: 660px;
+		margin: 0 auto;
 		border: 1px solid #222;
 		background-color: #111;
 		background-image: -moz-linear-gradient(#444, #111); 
@@ -368,7 +368,7 @@ body{
 	
 /* contenido */
 .contenedor{
-	width: 533px;
+	width: 560px;
 	margin: 0 auto;
 	background: #f8f9fa url('../images/artwork-pattern.png') repeat-x left bottom;
 	border: 1px solid #eeefef;
