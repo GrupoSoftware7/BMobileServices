@@ -16,12 +16,13 @@
 <div class="container">    
       <div  class="form">
       		<h2>Compras</h2>  
-    		<form id="contactform" method="post" action="comprar">   			          
+    		<form id="contactform" method="post" action="comprar">
+    			<input type="hidden" name="NumCel" value="<%=actualCuenta.getCelular() %>" />   			          
 	            <p class="contact"><label for="phone">Numero de Celular a Transferir</label></p> 
-	            <input id="phone" name="celular" placeholder="Escriba Numero de celular" required="" type="text">
+	            <input id="celular" name="celular" placeholder="Escriba Numero de celular" required="" type="text">
     			 
     			<p class="contact"><label for="monto">Monto (soles)</label></p> 
-    			<input id="email" name="correo" placeholder="Escriba Monto en soles" required="" type="email"> 
+    			<input id="monto" name="monto" placeholder="Escriba Monto en soles" required="" type="email"> 
     			 
                 <p class="contact"><label for="tipo">Tipo de Compra</label></p>
                 <select name="tipo">
