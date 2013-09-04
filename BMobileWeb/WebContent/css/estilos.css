@@ -1,7 +1,9 @@
 @CHARSET "UTF-8";
 body{
-		background: #fff;
+		background: #EDF3D6;
 		font: 13px 'trebuchet MS', Arial, Helvetica;
+		margin: 0;
+		padding: 0;
 	}
 	
 	h2, p {
@@ -11,6 +13,18 @@ body{
 	
 	a {
 		color: #2A679F;
+	}
+	
+	header{
+		width: 635px;
+		height: 136px;
+		margin: 0 auto;
+		padding: 0;
+	}
+	
+	header img{
+		width: 635px;
+		height: 136px;
 	}
 	
 	#menu, #menu ul {
