@@ -4,6 +4,9 @@
    Usuario actualUser = null;
    Cuenta actualCuenta = null;
 %>
+<header>
+	<img src="/bmobile/imagenes/bmobile.jpg" />
+</header> 
 <nav id="menu-wrap">  
 	<ul id="menu">
 		<li>
@@ -30,7 +33,7 @@
 			<a href="tarifas.jsp">TARIFAS</a>
 		</li>
 		<li>
-			<a href="contactenos.jsp">CONT¡CTENOS</a>		
+			<a href="contactenos.jsp">CONT√ÅCTENOS</a>		
 		</li>
 		<% if (auth != null && auth == true){
 	   	actualUser = (Usuario)session.getAttribute("usuario");
@@ -63,15 +66,15 @@
 					</ul>				
 				</li>
 				<li>
-					<a href="logout">Cerrar SesiÛn</a>
+					<a href="logout">Cerrar Sesi√≥n</a>
 				</li>
 			</ul>
 		</li>
 		<%}else{%>
 		<li>
-			<a href="registro.jsp">REGÕSTRESE</a>
+			<a href="registro.jsp">REG√çSTRESE</a>
 		</li>
-		<li><a href="login.jsp">INICIAR SESI”N</a></li>
+		<li><a href="login.jsp">INICIAR SESI√ìN</a></li>
 		<%} %>
 	</ul>
 </nav>
