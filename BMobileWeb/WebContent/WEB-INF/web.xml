@@ -26,6 +26,14 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>control.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Compras</servlet-name>
+        <servlet-class>control.Compras</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Recargas</servlet-name>
+        <servlet-class>control.Recargas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Autentificacion</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -37,6 +45,14 @@
     <servlet-mapping>
         <servlet-name>Registro</servlet-name>
         <url-pattern>/registro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Compras</servlet-name>
+        <url-pattern>/comprar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Recargas</servlet-name>
+        <url-pattern>/recargas</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
